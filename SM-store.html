@@ -1,0 +1,182 @@
+<!Doctype html>
+<html lang="en">
+<head>
+<title>Stevie Merrill - store</title>
+<link rel="stylesheet" href="SM.css"
+
+
+
+
+</head>
+<body>
+<div id="wrapper">
+<nav><ul>
+	<li><a class="nav" href="SM-home.html">home</a></li>
+	<li><a class="nav" href="SM-futuregoals.html">future goals</a></li>
+	<li><a class="nav" href="SM-Magicthegathering.html">Magic: the gathering</a></li>
+	<li><a class="nav" href="SM-Funjavascript.html">Fun Java Script</a></li>
+	<li><a class="nav" href="SM-Valorant.html">Valorant Clips</a></li>
+	<li><a class="nav" href="SM-runtimes.html">Running Times</a></li>
+	<li><a class="nav" href="SM-store.html">Store</a></li>
+</ul></nav>
+<div id="main">
+<header>
+<h1>Stevie Merrill</h1>
+</header>
+
+<br>
+<br>
+<div class="body">
+	<h1>copper music box shop</h1>
+	<div id="top">
+		<div id="abt">
+		<p style="color:white;">This is the copper music box shop. It is a small collection of mine... This is not the complete collection. They are not actually for sale</p>
+		</div>
+		<div id="imgcycle">
+			<figure>
+				<img id="rotate" src="" alt="image rotation" width="300" style="margin:0;">
+				<figcaption id="imgcaption" style="color:white;"></figcaption>
+			</figure>
+		</div>
+	</div>
+	<div id="bottom">
+		<div id="form">
+			<form>
+				<input id="check" name="Plane" type="checkbox" value="0" onmouseover="displayimage(0)">
+					<label for="Plane" onmouseover="displayimage(0)" style="color:white;">Plane</label><br>
+				<input id="check" name="Barber" type="checkbox" value="1" onmouseover="displayimage(1)">
+					<label for="Barber" onmouseover="displayimage(1)" style="color:white;">Barber Shop</label><br>
+				<input id="check" name="Carousel" type="checkbox" value="2" onmouseover="displayimage(2)">
+					<label for="Carousel" onmouseover="displayimage(2)" style="color:white;">Carousel</label><br>
+				<input id="check" name="Truck" type="checkbox" value="3" onmouseover="displayimage(3)">
+					<label for="Truck" onmouseover="displayimage(3)" style="color:white;">Truck</label><br>
+				<input id="check" name="Ferris" type="checkbox" value="4" onmouseover="displayimage(4)">
+					<label for="Ferris" onmouseover="displayimage(4)" style="color:white;">Ferris Wheel</label><br>
+				<input type="button" value="submit"  onclick="mysubmit()">
+			</form>
+		</div>
+		<div id="output">
+			<h3>total</h3>
+			    <table id="tbl">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody id="tbdy">
+					</tbody>
+				</table>
+		</div>
+		<div id="img">
+			<figure>
+				<img id="hover" src="" alt="Hover selection to view image" width="300">
+				<figcaption id="hovercaption" style="color:white; text-align:center;position:relative;left:-200px;"></figcaption>
+			</figure>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+<script>
+	"use strict";
+	let today = new Date()
+	
+	const Plane = {source:"images/Plane.jpg", name:"copper music box plane", price:20,label:"Plane"}
+	const Barber = {source:"images/Barber.jpg", name:"copper music box barber shop", price:40,label:"Barber"}
+	const Carousel = {source:"images/Carousel.jpg", name:"copper music box carousel", price:25,label:"Carousel"}
+	const Truck = {source:"images/Truck.jpg", name:"copper music box truck", price:20,label:"Truck"}
+	const Ferris = {source:"images/Ferris.jpg", name:"copper music box ferris wheel", price:35,label:"Ferris"}
+	
+	const inventory = [Plane, Barber, Carousel, Truck, Ferris]
+	
+	function displayimage(n){
+		//document.getElementById("hover").hidden = false
+		document.getElementById("hover").src = inventory[n].source;
+		document.getElementById("hovercaption").innerHTML = inventory[n].name + " for $" + (inventory[n].price).toString();
+		document.getElementById("hover").style.visibility = "visible";
+	}
+	
+	let n = 0
+	function rotateimage() {
+		document.getElementById("rotate").src = inventory[n].source;
+		document.getElementById("imgcaption").innerHTML = inventory[n].name + " for $" + (inventory[n].price).toString();
+		//console.log(n)
+		if (n != 4) {
+			n++
+		} else {
+			n=0
+		}
+		let loop = setTimeout(rotateimage,4000)
+	}
+	
+	function createtablereceipt(list) {
+		for (let i=0;i<list.length;i++){
+			appendrow(inventory[list[i]].label, inventory[list[i]].price)
+		}
+		//tax 5% before fees
+		let subtotal = calculatetotal(list);
+		appendrow("subtotal",subtotal);
+		let tax = subtotal * .05;
+		appendrow("tax",tax);
+		// $5 packing fee
+		appendrow("packing fee", 5);
+		// $10 shipping fee
+		appendrow("Shipping fee", 10);
+		// total
+		let total = subtotal + tax + 15
+		appendrow("total",total);
+		document.getElementById("tbl").style.visibility = "visible";
+	}
+	
+	function appendrow(label, value) {
+		let trNode, tdNode, txtNode
+		//create format object
+		let formatObj = {
+		style: "decimal",
+		maximumFractionDigits: 2,
+		minimumFractionDigits: 2
+		};
+		// create a <tr> node
+		trNode = document.createElement("tr");
+		//create a td node year
+		tdNode = document.createElement("td");
+		txtNode = document.createTextNode(label);
+		tdNode.appendChild(txtNode);
+		trNode.appendChild(tdNode);
+		//create a td node contribution
+		tdNode = document.createElement("td");
+		txtNode = document.createTextNode("$" + value.toLocaleString("en-US", formatObj));
+		tdNode.appendChild(txtNode);
+		trNode.appendChild(tdNode);
+		//append to body
+		document.getElementById("tbdy").appendChild(trNode);
+	}
+	
+	function calculatetotal(list) {
+	let total = 0
+		for (let i=0;i<list.length;i++){
+			total += inventory[list[i]].price
+		}
+		return total
+	}
+	
+	document.getElementById("tbl").style.visibility = "hidden";
+	document.getElementById("hover").style.visibility = "hidden";
+	
+	//createtablereceipt([0,2,4])
+	
+	function mysubmit(){
+		let list = []
+		let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+
+		for (let i = 0; i < checkboxes.length; i++) {
+			list.push(checkboxes[i].value)
+		}
+		console.log(list)
+		createtablereceipt(list)
+	}
+	
+	rotateimage()
+</script>
+</html>

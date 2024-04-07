@@ -1,0 +1,55 @@
+<!Doctype html>
+<html lang="en">
+<head>
+<title>Stevie Merrill - Fun Java Script</title>
+<link rel="stylesheet" href="SM.css"
+
+
+
+
+</head>
+<body>
+<div id="wrapper">
+<nav><ul>
+	<li><a class="nav" href="SM-home.html">home</a></li>
+	<li><a class="nav" href="SM-futuregoals.html">future goals</a></li>
+	<li><a class="nav" href="SM-Magicthegathering.html">Magic: the gathering</a></li>
+	<li><a class="nav" href="SM-Funjavascript.html">Fun Java Script</a></li>
+	<li><a class="nav" href="SM-Valorant.html">Valorant Clips</a></li>
+	<li><a class="nav" href="SM-runtimes.html">Running Times</a></li>
+	<li><a class="nav" href="SM-store.html">Store</a></li>
+</ul></nav>
+<div id="main">
+<header>
+<h1>Stevie Merrill</h1>
+</header>
+
+
+<br>
+<br>
+<div class="body">
+<h2 onmouseover="start()">Fun Java Script! Hover Over Me!</h2>
+<p id="txt">Honestly I couldn't come up with a 4th page so I decided to do some goofy java script. I was struggling to set the DOM element to a variable name so I
+ put it into my function.<p>
+
+
+
+
+
+</div>
+</div>
+</body>
+<script>
+"use strict"
+function start() {
+	console.log(window.getComputedStyle(document.body).backgroundColor)
+	//let background = document.body.style.backgroundColor;
+	if (window.getComputedStyle(document.body).backgroundColor == "rgb(62, 68, 68)") {
+		document.body.style.backgroundColor="green";
+	} else {
+		document.body.style.backgroundColor="rgb(62, 68, 68)";
+	}
+}
+</script>
+
+</html>
